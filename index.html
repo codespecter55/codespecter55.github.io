@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>For You My Universe ✨ | Khairunnisa</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <style>
     /* BASE STYLE */
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Dancing+Script:wght@700&family=Quicksand:wght@600&display=swap');
@@ -15,7 +16,7 @@
     }
     body {
       font-family: 'Poppins', sans-serif;
-      background: #0f0c29;
+      background: linear-gradient(135deg, #0f0c29, #1a1a3a);
       color: white;
       overflow-x: hidden;
       touch-action: pan-y;
@@ -44,21 +45,24 @@
       width: 90%;
       max-width: 400px;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
-      border: 1px solid rgba(255, 105, 180, 0.3);
+      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+      border: 1px solid rgba(255, 105, 180, 0.4);
+      transform-style: preserve-3d;
+      perspective: 1000px;
     }
     .lock-icon {
       font-size: 3rem;
       margin-bottom: 1rem;
-      animation: float 3s ease-in-out infinite;
+      animation: float 3s ease-in-out infinite, pulse 2s ease infinite;
     }
     .password-title {
       font-family: 'Dancing Script', cursive;
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       margin-bottom: 0.5rem;
-      background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4, #ffb7b7);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 10px rgba(255, 154, 158, 0.3);
     }
     .password-subtitle {
       font-size: 0.9rem;
@@ -81,6 +85,7 @@
     .password-input:focus {
       border-color: #ff9a9e;
       box-shadow: 0 0 15px rgba(255, 154, 158, 0.5);
+      transform: scale(1.02);
     }
     .submit-btn {
       background: linear-gradient(45deg, #ff9a9e, #fad0c4);
@@ -93,10 +98,26 @@
       cursor: pointer;
       transition: all 0.3s;
       box-shadow: 0 5px 15px rgba(255, 154, 158, 0.4);
+      position: relative;
+      overflow: hidden;
     }
     .submit-btn:hover {
       transform: translateY(-3px);
       box-shadow: 0 8px 25px rgba(255, 154, 158, 0.6);
+    }
+    .submit-btn:after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 200%;
+      height: 200%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(30deg);
+      transition: all 0.3s;
+    }
+    .submit-btn:hover:after {
+      left: 100%;
     }
     
     /* MAIN CONTENT */
@@ -113,32 +134,45 @@
       align-items: center;
       position: relative;
       text-align: center;
+      overflow: hidden;
     }
     
     /* TYPOGRAPHY */
     .section-title {
       font-family: 'Dancing Script', cursive;
-      font-size: 2.8rem;
+      font-size: 3.2rem;
       margin-bottom: 2rem;
-      background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4, #ffb7b7);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 10px rgba(255, 154, 158, 0.3);
     }
     .text {
       font-size: 1.2rem;
       max-width: 700px;
       margin: 0 auto 1.5rem;
       line-height: 1.8;
+      position: relative;
     }
     .highlight {
       color: #ff9a9e;
       font-weight: 500;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     }
     .emoji-container {
       font-size: 2.5rem;
       margin: 2rem 0;
       line-height: 1.5;
+      display: flex;
+      gap: 15px;
     }
+    .emoji {
+      display: inline-block;
+      animation: float 4s ease-in-out infinite;
+    }
+    .emoji:nth-child(1) { animation-delay: 0s; }
+    .emoji:nth-child(2) { animation-delay: 0.5s; }
+    .emoji:nth-child(3) { animation-delay: 1s; }
     
     /* SPECIAL ELEMENTS */
     .love-note {
@@ -151,6 +185,12 @@
       border: 1px solid rgba(255, 154, 158, 0.3);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       position: relative;
+      transform-style: preserve-3d;
+      transition: all 0.5s;
+    }
+    .love-note:hover {
+      transform: translateY(-5px) rotateX(5deg);
+      box-shadow: 0 15px 40px rgba(255, 154, 158, 0.3);
     }
     .love-note:before {
       content: "💌";
@@ -161,6 +201,7 @@
       font-size: 2rem;
       background: #0f0c29;
       padding: 0 15px;
+      z-index: 1;
     }
     .love-note p {
       font-family: 'Quicksand', sans-serif;
@@ -175,12 +216,21 @@
       font-family: 'Dancing Script', cursive;
       font-size: 1.8rem;
       color: #ff9a9e;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     }
     
     /* ANIMATIONS */
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-15px); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 5px rgba(255, 154, 158, 0.5); }
+      50% { text-shadow: 0 0 15px rgba(255, 154, 158, 0.9); }
     }
     .hidden {
       opacity: 0;
@@ -197,17 +247,39 @@
       font-size: 0.9rem;
       opacity: 0.7;
       animation: bounce 2s infinite;
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(10px); }
     }
     
+    /* FLOATING HEARTS */
+    .heart {
+      position: absolute;
+      pointer-events: none;
+      animation: float-heart linear forwards;
+      z-index: 10;
+    }
+    @keyframes float-heart {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
     /* RESPONSIVE */
     @media (max-width: 768px) {
-      .section-title { font-size: 2.2rem; }
+      .section-title { font-size: 2.5rem; }
       .text { font-size: 1.1rem; }
       .love-note p { font-size: 1.1rem; }
+      .password-title { font-size: 2rem; }
     }
   </style>
 </head>
@@ -226,56 +298,86 @@
   <!-- MAIN CONTENT -->
   <div class="content" id="mainContent">
     <!-- HERO SECTION -->
-    <section>
-  <h1 class="section-title">Khairunnisa,</h1>
-  <div class="emoji-container">💫🌌✨</div>
-  <p class="text">Ini adalah secuil hati yang kuukir dalam kata-kata, yang mungkin terlalu malu untuk kuucap langsung di depanmu...</p>
-  <p class="scroll-hint">Gulir pelan-pelan ya, nisa, seperti aku menikmati setiap detik bersamamu 🥀</p>
-</section>
+    <section id="hero">
+      <h1 class="section-title animate__animated animate__fadeInDown">Khairunnisa,</h1>
+      <div class="emoji-container">
+        <span class="emoji">💫</span>
+        <span class="emoji">🌌</span>
+        <span class="emoji">✨</span>
+      </div>
+      <p class="text animate__animated animate__fadeIn animate__delay-1s">Ini adalah secuil hati yang kuukir dalam kata-kata, yang mungkin terlalu malu untuk kuucap langsung di depanmu...</p>
+      <p class="scroll-hint animate__animated animate__fadeIn animate__delay-2s">
+        <span class="animate__animated animate__fadeInDown animate__infinite animate__slower">👇</span>
+        Gulir pelan-pelan ya, nisa, seperti aku menikmati setiap detik bersamamu 🥀
+      </p>
+      <div id="hero-hearts"></div>
+    </section>
 
     <!-- SOSMED STORY -->
     <section>
-  <h2 class="section-title hidden">Awal Cerita</h2>
-  <div class="emoji-container hidden">📱💝🔥</div>
-  <p class="text hidden">Masih ingat nggak saat kita pertama kali tersapa di <span class="highlight">Telegram</span>? Awalnya cuma iseng, tapi siapa sangka aku menemukan <span class="highlight">cahaya kecil</span> yang akhirnya jadi matahari di hidupku.</p>
-  <p class="text hidden">Dari obrolan ringan sampai lupa waktu berjam-jam, kamu bikin aku sadar bahwa <span class="highlight">takdir itu nyata</span>, dan dia datang dengan senyummu.</p>
-</section>
+      <h2 class="section-title hidden">Awal Cerita</h2>
+      <div class="emoji-container hidden">
+        <span class="emoji">📱</span>
+        <span class="emoji">💝</span>
+        <span class="emoji">🔥</span>
+      </div>
+      <p class="text hidden">Masih ingat nggak saat kita pertama kali tersapa di <span class="highlight">Telegram</span>? Awalnya cuma iseng, tapi siapa sangka aku menemukan <span class="highlight">cahaya kecil</span> yang akhirnya jadi matahari di hidupku.</p>
+      <p class="text hidden">Dari obrolan ringan sampai lupa waktu berjam-jam, kamu bikin aku sadar bahwa <span class="highlight">takdir itu nyata</span>, dan dia datang dengan senyummu.</p>
+      <div class="floating-hearts"></div>
+    </section>
 
     <!-- VIBES SECTION -->
     <section>
-  <h2 class="section-title hidden">Our Vibes</h2>
-  <div class="emoji-container hidden">🎶💞🎧</div>
-  <p class="text hidden">Bersamamu rasanya seperti mendengar <span class="highlight">melodi favorit</span> yang tak pernah bosan kuputar ulang. Dari bahas lagu sampai cerita kecil yang nggak penting, semuanya jadi indah karena ada kamu.</p>
-  <p class="text hidden">Kamu itu nadaku, <span class="highlight">irama yang bikin jantungku berdetak</span>, dan aku nggak pernah mau tekan tombol pause.</p>
-</section>
+      <h2 class="section-title hidden">Our Vibes</h2>
+      <div class="emoji-container hidden">
+        <span class="emoji">🎶</span>
+        <span class="emoji">💞</span>
+        <span class="emoji">🎧</span>
+      </div>
+      <p class="text hidden">Bersamamu rasanya seperti mendengar <span class="highlight">melodi favorit</span> yang tak pernah bosan kuputar ulang. Dari bahas lagu sampai cerita kecil yang nggak penting, semuanya jadi indah karena ada kamu.</p>
+      <p class="text hidden">Kamu itu nadaku, <span class="highlight">irama yang bikin jantungku berdetak</span>, dan aku nggak pernah mau tekan tombol pause.</p>
+    </section>
 
     <!-- LOVE NOTE -->
     <section>
-  <div class="love-note hidden">
-    <p>Dear Nisa,</p>
-    <p>Aku nggak pernah nyangka kalau ketemu kamu di Telegram bakal jadi <span class="highlight">detak pertama</span> yang bikin hatiku hidup lagi. Setiap katamu seperti hembusan angin yang bikin aku lupa dunia di sekitarku.</p>
-    <p>Kamu itu <span class="highlight">puisi yang tak selesai</span>—setiap sisi darimu bikin aku jatuh lebih dalam, dari tawamu yang nyanyi di kepalaku, sampai diammu yang bikin aku ingin tahu segalanya tentangmu.</p>
-    <p>Terima kasih udah jadi <span class="highlight">cahaya</span> yang diam-diam menerangi hariku, meski kadang aku cuma bisa memandangmu dari kejauhan.</p>
-    <p class="signature">Yours Always,<br>Yang diam-diam tersenyum tiap memikirkanmu</p>
-  </div>
-  <div class="emoji-container hidden">💌💖📲</div>
-</section>
+      <div class="love-note hidden animate__animated">
+        <p>Dear Nisa,</p>
+        <p>Aku nggak pernah nyangka kalau ketemu kamu di Telegram bakal jadi <span class="highlight">detak pertama</span> yang bikin hatiku hidup lagi. Setiap katamu seperti hembusan angin yang bikin aku lupa dunia di sekitarku.</p>
+        <p>Kamu itu <span class="highlight">puisi yang tak selesai</span>—setiap sisi darimu bikin aku jatuh lebih dalam, dari tawamu yang nyanyi di kepalaku, sampai diammu yang bikin aku ingin tahu segalanya tentangmu.</p>
+        <p>Terima kasih udah jadi <span class="highlight">cahaya</span> yang diam-diam menerangi hariku, meski kadang aku cuma bisa memandangmu dari kejauhan.</p>
+        <p class="signature">Yours Always,<br>Yang diam-diam tersenyum tiap memikirkanmu</p>
+      </div>
+      <div class="emoji-container hidden">
+        <span class="emoji">💌</span>
+        <span class="emoji">💖</span>
+        <span class="emoji">📲</span>
+      </div>
+    </section>
 
     <!-- FUTURE -->
-<section>
-  <h2 class="section-title hidden">Next Chapter</h2>
-  <div class="emoji-container hidden">💞📖🔗</div>
-  <p class="text hidden">Entah berapa bab yang akan kita tulis, aku cuma tahu satu hal: aku ingin jadi <span class="highlight">satu-satunya pemeran</span> di setiap halaman ceritamu.</p>
-  <p class="text hidden">Bukan cuma di layar ponsel, tapi di setiap langkah hidupmu. Bersamamu, <span class="highlight">selamanya</span> terasa terlalu singkat.</p>
-</section>
+    <section>
+      <h2 class="section-title hidden">Next Chapter</h2>
+      <div class="emoji-container hidden">
+        <span class="emoji">💞</span>
+        <span class="emoji">📖</span>
+        <span class="emoji">🔗</span>
+      </div>
+      <p class="text hidden">Entah berapa bab yang akan kita tulis, aku cuma tahu satu hal: aku ingin jadi <span class="highlight">satu-satunya pemeran</span> di setiap halaman ceritamu.</p>
+      <p class="text hidden">Bukan cuma di layar ponsel, tapi di setiap langkah hidupmu. Bersamamu, <span class="highlight">selamanya</span> terasa terlalu singkat.</p>
+    </section>
 
     <!-- ENDING -->
-<section>
-  <h2 class="section-title hidden">Till Infinity</h2>
-  <div class="emoji-container">🔥💓✨</div>
-  <p class="text hidden">Kamu bukan cuma <span class="highlight">mimpi terindahku</span>, tapi juga <span class="highlight">alasanku membukakan mata setiap hari</span>.</p>
-  <p class="text hidden">Kalau dunia ini panggung, aku cuma mau jadi penutup ceritamu—selalu ada di sampingmu, memelukmu erat sampai <span class="highlight">bintang-bintang lupa bersinar</span>.</p>
-</section>
+    <section id="ending">
+      <h2 class="section-title hidden">Till Infinity</h2>
+      <div class="emoji-container">
+        <span class="emoji">🔥</span>
+        <span class="emoji">💓</span>
+        <span class="emoji">✨</span>
+      </div>
+      <p class="text hidden">Kamu bukan cuma <span class="highlight">mimpi terindahku</span>, tapi juga <span class="highlight">alasanku membukakan mata setiap hari</span>.</p>
+      <p class="text hidden">Kalau dunia ini panggung, aku cuma mau jadi penutup ceritamu—selalu ada di sampingmu, memelukmu erat sampai <span class="highlight">bintang-bintang lupa bersinar</span>.</p>
+      <div id="ending-hearts"></div>
+    </section>
   </div>
 
   <script>
@@ -286,7 +388,7 @@
     const submitBtn = document.getElementById('submitBtn');
     
     // Multiple valid passwords
-    const validPasswords = ['khairunnisa'];
+    const validPasswords = ['khairunnisa', 'nisa', 'ais'];
     
     submitBtn.addEventListener('click', checkPassword);
     passwordInput.addEventListener('keypress', function(e) {
@@ -302,9 +404,14 @@
           passwordScreen.style.display = 'none';
           mainContent.style.opacity = '1';
           initAnimations();
+          createHearts('hero-hearts', 20);
         }, 500);
       } else {
         passwordInput.style.borderColor = '#ff4757';
+        passwordInput.style.animation = 'shake 0.5s';
+        setTimeout(() => {
+          passwordInput.style.animation = '';
+        }, 500);
         passwordInput.value = '';
         passwordInput.placeholder = 'Coba nama lain..';
       }
@@ -321,6 +428,11 @@
           
           if (elTop < windowHeight - 100) {
             el.classList.add('show');
+            
+            // Add special animation for love note
+            if (el.classList.contains('love-note')) {
+              el.classList.add('animate__fadeInUp');
+            }
           }
         });
       }
@@ -330,28 +442,77 @@
       
       // Check on scroll
       window.addEventListener('scroll', checkScroll);
+      
+      // Create floating hearts periodically
+      setInterval(() => {
+        createRandomHearts(3);
+      }, 2000);
+      
+      // Ending section hearts
+      const endingSection = document.getElementById('ending');
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          createHearts('ending-hearts', 30);
+          observer.unobserve(endingSection);
+        }
+      });
+      observer.observe(endingSection);
     }
     
-    // SIMPLE HEARTS EFFECT
-    function createHearts() {
-      const heart = document.createElement('div');
-      heart.innerHTML = '💖';
-      heart.style.position = 'fixed';
-      heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-      heart.style.left = Math.random() * window.innerWidth + 'px';
-      heart.style.top = '-50px';
-      heart.style.zIndex = '999';
-      heart.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+    // HEARTS EFFECTS
+    function createHearts(containerId, count) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
       
-      document.body.appendChild(heart);
-      
-      setTimeout(() => {
-        heart.remove();
-      }, 5000);
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          const heart = document.createElement('div');
+          heart.className = 'heart';
+          heart.innerHTML = ['💖', '💗', '💓', '💞', '💕'][Math.floor(Math.random() * 5)];
+          heart.style.left = Math.random() * 100 + 'vw';
+          heart.style.top = container.offsetTop + (Math.random() * container.offsetHeight) + 'px';
+          heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+          heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+          
+          document.body.appendChild(heart);
+          
+          setTimeout(() => {
+            heart.remove();
+          }, 5000);
+        }, i * 100);
+      }
     }
     
-    // Add hearts periodically
-    setInterval(createHearts, 300);
+    function createRandomHearts(count) {
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          const heart = document.createElement('div');
+          heart.className = 'heart';
+          heart.innerHTML = ['💖', '💗', '💓', '💞', '💕'][Math.floor(Math.random() * 5)];
+          heart.style.left = Math.random() * 100 + 'vw';
+          heart.style.top = window.innerHeight + 'px';
+          heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
+          heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+          
+          document.body.appendChild(heart);
+          
+          setTimeout(() => {
+            heart.remove();
+          }, 10000);
+        }, i * 300);
+      }
+    }
+    
+    // Add shake animation for wrong password
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20%, 60% { transform: translateX(-5px); }
+        40%, 80% { transform: translateX(5px); }
+      }
+    `;
+    document.head.appendChild(style);
   </script>
 </body>
-</html>
+        </html>
