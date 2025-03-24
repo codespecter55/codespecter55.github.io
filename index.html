@@ -1,257 +1,655 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Kalkulator CC Motor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Khairunnisa, My Eternal Star</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Dancing+Script:wght@600&family=Pacifico&display=swap');
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }
-
-    html, body {
-      height: 100%;
-      overflow-x: hidden;
+      scroll-behavior: smooth;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(135deg, #1c1c2e, #2b5876);
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #0f0f1a, #1c1c3c);
       color: #fff;
-      display: flex;
-      flex-direction: column;
+      text-align: center;
+      overflow-x: hidden;
+      position: relative;
       min-height: 100vh;
+      touch-action: pan-y;
     }
 
-    /* Background animasi */
-    body::before {
-      content: '';
-      position: absolute;
+    /* Password Screen */
+    .password-screen {
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle, rgba(9, 121, 189, 0.3), rgba(53, 73, 94, 0.2), #1c1c2e);
-      animation: gradientMove 10s infinite alternate;
-      z-index: -2;
+      background: linear-gradient(135deg, #1c1c3c, #0f0f1a);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transition: all 0.5s ease;
     }
 
-    body::after {
-      content: '';
+    .lock-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .password-container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+      max-width: 350px;
+      width: 90%;
+    }
+
+    .password-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #ff69b4;
+    }
+
+    .password-subtitle {
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+
+    .password-input {
+      width: 100%;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 15px;
+      text-align: center;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    .password-input:focus {
+      border-color: #ff69b4;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+    }
+
+    .submit-btn {
+      background: linear-gradient(45deg, #ff69b4, #ff1493);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.6);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .error-message {
+      color: #ff6b6b;
+      font-size: 0.85rem;
+      margin-top: 10px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    /* Hearts Animation */
+    .heart {
       position: absolute;
+      width: 20px;
+      height: 20px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff69b4"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center/contain;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Background Partikel */
+    .stars-container {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      background: url('https://cdn.jsdelivr.net/gh/willianjusten/particles.js/demo/media/blue_particles.png');
-      background-size: cover;
-      opacity: 0.15;
-      animation: particleMove 12s linear infinite;
       z-index: -1;
+      overflow: hidden;
     }
 
-    @keyframes gradientMove {
-      0% { background-position: top left; }
-      100% { background-position: bottom right; }
+    .star {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      animation: twinkle 4s infinite alternate;
     }
 
-    @keyframes particleMove {
-      0% { background-position: 0 0; }
-      100% { background-position: 0 -100%; }
+    .shooting-star {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff, rgba(255, 255, 255, 0));
+      border-radius: 50%;
+      transform: rotate(45deg);
+      pointer-events: none;
     }
 
-    .container {
-      flex: 1;
+    @keyframes twinkle {
+      0% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0.3; transform: scale(1); }
+    }
+
+    @keyframes shoot {
+      0% { transform: translateX(0) translateY(0) rotate(45deg); opacity: 1; }
+      100% { transform: translateX(100vw) translateY(100vh) rotate(45deg); opacity: 0; }
+    }
+
+    /* Section */
+    .content-container {
+      opacity: 0;
+      transition: opacity 1s ease-in;
+    }
+
+    section {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      position: relative;
+      overflow: hidden;
     }
 
-    /* Card futuristik */
-    .card {
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(20px);
-      border-radius: 20px;
-      padding: 30px;
-      max-width: 480px;
+    /* Animasi Typing (JavaScript) */
+    .typing {
+      font-size: 2.5rem;
+      font-weight: bold;
+      font-family: 'Dancing Script', cursive;
+      display: inline-block;
+      white-space: nowrap;
+      border-right: 3px solid white;
+      overflow: hidden;
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    /* Efek Teks Scroll */
+    .hidden {
+      opacity: 0;
+      transform: translateY(30px) scale(0.9);
+      filter: blur(5px);
+      transition: all 1.5s cubic-bezier(0.17, 0.85, 0.45, 1);
+    }
+
+    .show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    .text {
+      font-size: 1.8rem;
+      font-weight: 500;
+      max-width: 80%;
+      text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.3);
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(45deg, #ffffff, #ff69b4);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradient 3s ease infinite;
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Decorative Flourish */
+    .flourish {
+      position: absolute;
       width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 105, 180, 0.8), transparent);
+      margin: 15px 0;
+      opacity: 0.5;
+    }
+
+    /* Efek Glowing di Akhir */
+    .glowing {
+      font-size: 2.5rem;
+      font-weight: bold;
+      font-family: 'Pacifico', cursive;
+      text-shadow: 0 0 10px #ff99ff, 0 0 20px #ff66ff, 0 0 30px #ff33ff;
+      animation: glow 1.5s infinite alternate;
+      letter-spacing: 1px;
+      margin-bottom: 30px;
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px #ff99ff, 0 0 10px #ff66ff; }
+      100% { text-shadow: 0 0 15px #ff99ff, 0 0 30px #ff33ff, 0 0 40px #ff00ff; }
+    }
+
+    /* Emoji Container */
+    .emoji-container {
+      font-size: 3rem;
       margin: 20px 0;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      animation: fadeIn 1s ease-out;
+      line-height: 1.5;
+      animation: float 3s ease-in-out infinite;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
     }
 
-    .card-header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .card-header h1 {
-      font-size: 2rem;
-      color: #00c3ff;
-      text-shadow: 0 0 20px rgba(0, 195, 255, 0.8);
-    }
-
-    .card-header p {
-      font-size: 1rem;
-      color: #ccc;
-    }
-
-    .input-group {
-      margin-bottom: 20px;
-    }
-
-    .input-group label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: bold;
-      color: #00c3ff;
-    }
-
-    .input-group input {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
-      font-size: 1rem;
-      outline: none;
-      transition: all 0.3s ease;
-      -webkit-text-fill-color: white;
-    }
-
-    .input-group input:focus {
-      transform: scale(1);
-      box-shadow: 0 4px 8px rgba(0, 195, 255, 0.5);
-    }
-
-    .btn {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(135deg, #00c3ff, #ff007f);
-      color: #fff;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 15px rgba(255, 0, 127, 0.8);
-    }
-
-    .result {
+    /* Scroll Hint */
+    .scroll-hint {
       margin-top: 20px;
-      padding: 20px;
-      background: rgba(0, 195, 255, 0.1);
-      border-radius: 8px;
-      border-left: 4px solid #00c3ff;
-      animation: slideUp 0.5s ease-out forwards;
-    }
-
-    .result h3 {
-      margin-bottom: 8px;
-      font-size: 1.25rem;
-      color: #00c3ff;
-    }
-
-    .result p {
       font-size: 1rem;
+      opacity: 0.8;
+      animation: bounce 1.5s infinite;
+      position: absolute;
+      bottom: 30px;
     }
 
-    footer {
-      text-align: center;
-      color: #aaa;
-      font-size: 0.875rem;
-      padding: 10px 20px;
-      background: rgba(0, 0, 0, 0.8);
-      width: 100%;
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
     }
 
-    footer a {
-      color: #00c3ff;
-      text-decoration: none;
+    /* Love Letter */
+    .love-letter {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 25px;
+      max-width: 80%;
+      margin: 20px auto;
+      position: relative;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 105, 180, 0.3);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      transform: rotate(-1deg);
     }
 
-    footer a:hover {
-      text-decoration: underline;
+    .love-letter:before {
+      content: '💌';
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+    }
+
+    .love-letter p {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.3rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .love-letter .signature {
+      text-align: right;
+      font-style: italic;
+      opacity: 0.8;
+      margin-top: 20px;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .text {
+        font-size: 1.5rem;
+        max-width: 90%;
+      }
+      
+      .typing {
+        font-size: 2rem;
+      }
+      
+      .glowing {
+        font-size: 2rem;
+      }
+      
+      .emoji-container {
+        font-size: 2.5rem;
+      }
+      
+      .love-letter {
+        max-width: 90%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .text {
+        font-size: 1.3rem;
+      }
+      
+      .typing {
+        font-size: 1.7rem;
+      }
+      
+      .glowing {
+        font-size: 1.7rem;
+      }
+      
+      .emoji-container {
+        font-size: 2rem;
+      }
+      
+      .love-letter p {
+        font-size: 1.1rem;
+      }
+    }
+    
+    /* Shake animation for password container */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+    
+    .shake {
+      animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <div class="card-header">
-        <h1>Kalkulator CC Motor</h1>
-        <p>Hitung volume mesin Anda dengan mudah</p>
-      </div>
-      <div class="card-content">
-        <div class="input-group">
-          <label for="diameter">Diameter Silinder (mm)</label>
-          <input type="number" id="diameter" placeholder="Contoh: 50">
-        </div>
-        <div class="input-group">
-          <label for="tinggi">Tinggi/Stroke Silinder (mm)</label>
-          <input type="number" id="tinggi" placeholder="Contoh: 56">
-        </div>
-        <div class="input-group">
-          <label for="jumlahSilinder">Jumlah Silinder</label>
-          <input type="number" id="jumlahSilinder" value="1" min="1" placeholder="Contoh: 1">
-        </div>
-        <button class="btn" onclick="hitungCC()">Hitung CC Motor</button>
-        <div id="result" class="result" style="display: none;">
-          <h3>Hasil Perhitungan</h3>
-          <p id="volume"></p>
-          <p id="kategori"></p>
-        </div>
-      </div>
+  <!-- Password Screen -->
+  <div class="password-screen" id="passwordScreen">
+    <div class="lock-icon">🔒</div>
+    <div class="password-container" id="passwordContainer">
+      <h2 class="password-title">For My Love's Eyes Only</h2>
+      <p class="password-subtitle">Masukkan password untuk membuka pesan istimewa ini</p>
+      <input type="password" id="passwordInput" class="password-input" placeholder="Masukkan password..." autofocus>
+      <button class="submit-btn" id="submitPassword">Buka Hati</button>
+      <p class="error-message" id="errorMessage">Password salah. Coba lagi.</p>
     </div>
   </div>
 
-  <footer>
-    <p>&copy; 2024 Kalkulator CC Motor. Dibuat dengan 💙 oleh <a href="https://wa.me/6283856085455">Codespecter55</a>.</p>
-  </footer>
+  <!-- Content (akan ditampilkan setelah password benar) -->
+  <div class="content-container" id="contentContainer">
+    <!-- Background Partikel -->
+    <div class="stars-container" id="starsContainer"></div>
+
+    <!-- Intro -->
+    <section>
+      <h1 class="typing" id="typing-text"></h1>
+      <div class="emoji-container">❤️✨</div>
+      <p class="scroll-hint">Scroll ke bawah ⬇️</p>
+    </section>
+
+    <!-- Teks muncul saat scroll -->
+    <section>
+      <div class="flourish"></div>
+      <p class="text hidden">Di antara jutaan bintang, kau yang paling terang di hatiku. ✨</p>
+      <div class="emoji-container hidden">🌟💫⭐</div>
+      <div class="flourish"></div>
+    </section>
+
+    <section>
+      <div class="emoji-container hidden">💏💑👩‍❤️‍👨</div>
+      <p class="text hidden">Setiap detik bersamamu adalah cerita yang ingin kuulang.</p>
+      <div class="emoji-container hidden">⏱️💞🔄</div>
+    </section>
+
+    <section>
+      <div class="flourish"></div>
+      <p class="text hidden">Aku tak butuh peta, karena setiap langkahku menuju hatimu.</p>
+      <div class="emoji-container hidden">🗺️👣❤️</div>
+      <div class="flourish"></div>
+    </section>
+
+    <!-- Love Letter Section -->
+    <section>
+      <div class="love-letter hidden">
+        <p>Untuk Khairunnisa yang tercinta,</p>
+        <p>Saat pertama kali bertemu denganmu, duniaku berhenti berputar. Waktu terasa melambat, dan aku tahu hidupku tidak akan pernah sama lagi.</p>
+        <p>Cintaku padamu seperti bintang-bintang di langit – tak terhitung jumlahnya, bersinar terang, dan abadi.</p>
+        <p>Senyummu adalah cahaya yang menerangi hari-hariku. Tawamu adalah melodi terindah yang pernah kudengar.</p>
+        <p>Aku berjanji untuk selalu berada di sisimu, dalam suka dan duka, dalam sehat dan sakit.</p>
+        <p>Terima kasih telah menjadi pelengkap hidupku yang sempurna.</p>
+        <p class="signature">Dengan cinta selamanya, 💕</p>
+      </div>
+    </section>
+
+    <section>
+      <p class="glowing">Khairunnisa, forever and always.</p>
+      <div class="emoji-container">💖 💘 💝</div>
+    </section>
+  </div>
 
   <script>
-    function hitungCC() {
-      const diameter = parseFloat(document.getElementById('diameter').value);
-      const tinggi = parseFloat(document.getElementById('tinggi').value);
-      const jumlahSilinder = parseFloat(document.getElementById('jumlahSilinder').value);
+    // Password Logic
+    const PASSWORD = "khairunnisa"; // Ubah password sesuai keinginan
+    const passwordScreen = document.getElementById('passwordScreen');
+    const contentContainer = document.getElementById('contentContainer');
+    const passwordInput = document.getElementById('passwordInput');
+    const submitPassword = document.getElementById('submitPassword');
+    const errorMessage = document.getElementById('errorMessage');
+    const passwordContainer = document.getElementById('passwordContainer');
 
-      if (isNaN(diameter) || isNaN(tinggi) || isNaN(jumlahSilinder) || diameter <= 0 || tinggi <= 0 || jumlahSilinder <= 0) {
-        alert('Harap masukkan nilai yang valid!');
-        return;
+    // Event listener untuk tombol submit
+    submitPassword.addEventListener('click', checkPassword);
+    
+    // Event listener untuk input password (tekan Enter)
+    passwordInput.addEventListener('keyup', function(event) {
+      if (event.key === "Enter") {
+        checkPassword();
       }
+    });
 
-      const volume = Math.PI * Math.pow(diameter / 2, 2) * tinggi * jumlahSilinder;
-      const volumeCC = (volume / 1000).toFixed(1);
-
-      let kategori;
-      if (volumeCC <= 150) {
-        kategori = 'Motor Kecil';
-      } else if (volumeCC <= 250) {
-        kategori = 'Motor Menengah';
-      } else if (volumeCC <= 500) {
-        kategori = 'Motor Besar';
+    function checkPassword() {
+      const inputValue = passwordInput.value.toLowerCase();
+      
+      if (inputValue === PASSWORD) {
+        // Password benar
+        passwordScreen.style.opacity = "0";
+        setTimeout(() => {
+          passwordScreen.style.display = "none";
+          contentContainer.style.opacity = "1";
+          
+          // Mulai animasi mengetik setelah password benar
+          setTimeout(typeEffect, 500);
+        }, 500);
       } else {
-        kategori = 'Motor Super';
+        // Password salah
+        errorMessage.style.opacity = "1";
+        passwordInput.style.borderColor = "#ff6b6b";
+        passwordInput.value = "";
+        
+        // Shake effect
+        passwordContainer.classList.add('shake');
+        setTimeout(() => {
+          passwordContainer.classList.remove('shake');
+        }, 500);
       }
-
-      document.getElementById('volume').innerText = `Volume Mesin: ${volumeCC} CC`;
-      document.getElementById('kategori').innerText = `Kategori: ${kategori}`;
-      document.getElementById('result').style.display = 'block';
     }
+
+    // Cegah zoom
+    document.addEventListener('touchstart', function(event) {
+      if (event.touches.length > 1) {
+        event.preventDefault();
+      }
+    }, { passive: false });
+
+    document.addEventListener('wheel', function(event) {
+      if (event.ctrlKey) {
+        event.preventDefault();
+      }
+    }, { passive: false });
+
+    // Generate bintang secara random
+    const starContainer = document.querySelector('.stars-container');
+    
+    function createStars() {
+      // Bersihkan container sebelum membuat bintang baru
+      starContainer.innerHTML = '';
+      
+      // Buat bintang normal
+      for (let i = 0; i < 150; i++) {
+        let star = document.createElement('div');
+        star.className = 'star';
+        star.style.width = (Math.random() * 3 + 1) + 'px';
+        star.style.height = star.style.width;
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.animationDuration = (Math.random() * 4 + 2) + 's';
+        star.style.animationDelay = (Math.random() * 2) + 's';
+        starContainer.appendChild(star);
+      }
+      
+      // Ciptakan bintang jatuh secara berkala
+      createShootingStar();
+      setInterval(createShootingStar, 4000);
+    }
+
+    function createShootingStar() {
+      let star = document.createElement('div');
+      star.className = 'shooting-star';
+      star.style.top = Math.random() * 50 + 'vh';
+      star.style.left = '0';
+      
+      // Ukuran random untuk bintang jatuh
+      const size = Math.random() * 2 + 2;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      
+      // Animasi bintang jatuh
+      const duration = Math.random() * 3 + 1;
+      star.style.animation = `shoot ${duration}s linear forwards`;
+      
+      starContainer.appendChild(star);
+      
+      // Hapus setelah animasi selesai
+      setTimeout(() => {
+        star.remove();
+      }, duration * 1000);
+    }
+
+    // Animasi hati melayang acak
+    function createHearts() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      document.body.appendChild(heart);
+      
+      // Posisi mulai
+      const startX = Math.random() * window.innerWidth;
+      heart.style.left = startX + 'px';
+      heart.style.top = window.innerHeight + 'px';
+      
+      // Ukuran acak
+      const size = Math.random() * 15 + 10;
+      heart.style.width = size + 'px';
+      heart.style.height = size + 'px';
+      
+      // Animasi naik dan menghilang
+      const duration = Math.random() * 5 + 3;
+      heart.style.transition = `all ${duration}s ease-out`;
+      heart.style.opacity = '0.8';
+      
+      setTimeout(() => {
+        heart.style.top = Math.random() * (window.innerHeight / 2) + 'px';
+        heart.style.left = (parseInt(heart.style.left) + (Math.random() * 100 - 50)) + 'px';
+        heart.style.opacity = '0';
+      }, 100);
+      
+      // Hapus hati setelah animasi selesai
+      setTimeout(() => {
+        heart.remove();
+      }, duration * 1000);
+    }
+
+    // Efek teks muncul saat scroll
+    const hiddenTexts = document.querySelectorAll('.hidden');
+
+    function checkScroll() {
+      hiddenTexts.forEach(text => {
+        const rect = text.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 50) {
+          text.classList.add('show');
+          createHearts(); // Tampilkan hati ketika teks muncul
+        }
+      });
+    }
+
+    // Fix animasi typing supaya tidak kepotong
+    const typingElement = document.getElementById("typing-text");
+    const textToType = "Khairunnisa, My Eternal Star";
+    let index = 0;
+
+    function typeEffect() {
+      if (index < textToType.length) {
+        typingElement.innerHTML += textToType[index];
+        index++;
+        setTimeout(typeEffect, 100);
+      } else {
+        typingElement.style.animation = "blink 1s step-end infinite";
+        
+        // Hapus efek kursor setelah beberapa detik
+        setTimeout(() => {
+          typingElement.style.borderRight = "none";
+          typingElement.style.animation = "none";
+        }, 3000);
+      }
+    }
+
+    // Inisialisasi semua fungsi
+    window.addEventListener('load', function() {
+      createStars();
+      
+      // Jalankan animasi hati secara berkala
+      setInterval(createHearts, 2000);
+      
+      // Periksa scroll awal
+      checkScroll();
+      window.addEventListener('scroll', checkScroll);
+      
+      // Cegah scrolling horizontal
+      document.body.style.overflowX = 'hidden';
+      
+      // Perbarui bintang saat resize
+      window.addEventListener('resize', function() {
+        createStars();
+      });
+    });
   </script>
 </body>
 </html>
