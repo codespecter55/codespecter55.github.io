@@ -2,654 +2,356 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Khairunnisa, My Eternal Star</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For You My Universe ✨ | Khairunnisa</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Dancing+Script:wght@600&family=Pacifico&display=swap');
-
+    /* BASE STYLE */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Dancing+Script:wght@700&family=Quicksand:wght@600&display=swap');
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       scroll-behavior: smooth;
-      -webkit-tap-highlight-color: transparent;
     }
-
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom, #0f0f1a, #1c1c3c);
-      color: #fff;
-      text-align: center;
+      background: #0f0c29;
+      color: white;
       overflow-x: hidden;
-      position: relative;
-      min-height: 100vh;
       touch-action: pan-y;
     }
-
-    /* Password Screen */
+    
+    /* PASSWORD SCREEN */
     .password-screen {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #1c1c3c, #0f0f1a);
+      background: linear-gradient(45deg, #1a1a2e, #16213e);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      z-index: 1000;
-      transition: all 0.5s ease;
+      z-index: 9999;
+      transition: all 0.5s;
     }
-
+    .password-box {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      padding: 2rem;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+      border: 1px solid rgba(255, 105, 180, 0.3);
+    }
     .lock-icon {
       font-size: 3rem;
-      margin-bottom: 20px;
-      animation: pulse 2s infinite;
+      margin-bottom: 1rem;
+      animation: float 3s ease-in-out infinite;
     }
-
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.1); opacity: 0.8; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    .password-container {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 30px;
-      border-radius: 15px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
-      max-width: 350px;
-      width: 90%;
-    }
-
     .password-title {
       font-family: 'Dancing Script', cursive;
-      font-size: 1.8rem;
-      margin-bottom: 15px;
-      color: #ff69b4;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-
     .password-subtitle {
       font-size: 0.9rem;
-      margin-bottom: 20px;
       opacity: 0.8;
+      margin-bottom: 1.5rem;
     }
-
     .password-input {
       width: 100%;
-      padding: 12px;
-      background: rgba(255, 255, 255, 0.1);
+      padding: 12px 15px;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.15);
       border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 8px;
+      border-radius: 50px;
       color: white;
-      font-family: 'Poppins', sans-serif;
-      margin-bottom: 15px;
+      font-size: 1rem;
       text-align: center;
       outline: none;
       transition: all 0.3s;
     }
-
     .password-input:focus {
-      border-color: #ff69b4;
-      box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+      border-color: #ff9a9e;
+      box-shadow: 0 0 15px rgba(255, 154, 158, 0.5);
     }
-
     .submit-btn {
-      background: linear-gradient(45deg, #ff69b4, #ff1493);
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4);
       color: white;
       border: none;
-      padding: 12px 25px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-family: 'Poppins', sans-serif;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-size: 1rem;
       font-weight: 500;
+      cursor: pointer;
       transition: all 0.3s;
-      box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+      box-shadow: 0 5px 15px rgba(255, 154, 158, 0.4);
     }
-
     .submit-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.6);
+      box-shadow: 0 8px 25px rgba(255, 154, 158, 0.6);
     }
-
-    .submit-btn:active {
-      transform: translateY(0);
-    }
-
-    .error-message {
-      color: #ff6b6b;
-      font-size: 0.85rem;
-      margin-top: 10px;
+    
+    /* MAIN CONTENT */
+    .content {
       opacity: 0;
-      transition: opacity 0.3s;
+      transition: opacity 1s;
     }
-
-    /* Hearts Animation */
-    .heart {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff69b4"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center/contain;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    /* Background Partikel */
-    .stars-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      overflow: hidden;
-    }
-
-    .star {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.7);
-      border-radius: 50%;
-      animation: twinkle 4s infinite alternate;
-    }
-
-    .shooting-star {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff, rgba(255, 255, 255, 0));
-      border-radius: 50%;
-      transform: rotate(45deg);
-      pointer-events: none;
-    }
-
-    @keyframes twinkle {
-      0% { opacity: 0.3; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.2); }
-      100% { opacity: 0.3; transform: scale(1); }
-    }
-
-    @keyframes shoot {
-      0% { transform: translateX(0) translateY(0) rotate(45deg); opacity: 1; }
-      100% { transform: translateX(100vw) translateY(100vh) rotate(45deg); opacity: 0; }
-    }
-
-    /* Section */
-    .content-container {
-      opacity: 0;
-      transition: opacity 1s ease-in;
-    }
-
     section {
       min-height: 100vh;
+      padding: 4rem 2rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 20px;
       position: relative;
-      overflow: hidden;
+      text-align: center;
     }
-
-    /* Animasi Typing (JavaScript) */
-    .typing {
-      font-size: 2.5rem;
-      font-weight: bold;
+    
+    /* TYPOGRAPHY */
+    .section-title {
       font-family: 'Dancing Script', cursive;
-      display: inline-block;
-      white-space: nowrap;
-      border-right: 3px solid white;
-      overflow: hidden;
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent; }
-    }
-
-    /* Efek Teks Scroll */
-    .hidden {
-      opacity: 0;
-      transform: translateY(30px) scale(0.9);
-      filter: blur(5px);
-      transition: all 1.5s cubic-bezier(0.17, 0.85, 0.45, 1);
-    }
-
-    .show {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: blur(0);
-    }
-
-    .text {
-      font-size: 1.8rem;
-      font-weight: 500;
-      max-width: 80%;
-      text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.3);
-      position: relative;
-      z-index: 2;
-      background: linear-gradient(45deg, #ffffff, #ff69b4);
-      background-size: 200% auto;
+      font-size: 2.8rem;
+      margin-bottom: 2rem;
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: gradient 3s ease infinite;
     }
-
-    @keyframes gradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    .text {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.8;
     }
-
-    /* Decorative Flourish */
-    .flourish {
-      position: absolute;
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255, 105, 180, 0.8), transparent);
-      margin: 15px 0;
-      opacity: 0.5;
+    .highlight {
+      color: #ff9a9e;
+      font-weight: 500;
     }
-
-    /* Efek Glowing di Akhir */
-    .glowing {
-      font-size: 2.5rem;
-      font-weight: bold;
-      font-family: 'Pacifico', cursive;
-      text-shadow: 0 0 10px #ff99ff, 0 0 20px #ff66ff, 0 0 30px #ff33ff;
-      animation: glow 1.5s infinite alternate;
-      letter-spacing: 1px;
-      margin-bottom: 30px;
-    }
-
-    @keyframes glow {
-      0% { text-shadow: 0 0 5px #ff99ff, 0 0 10px #ff66ff; }
-      100% { text-shadow: 0 0 15px #ff99ff, 0 0 30px #ff33ff, 0 0 40px #ff00ff; }
-    }
-
-    /* Emoji Container */
     .emoji-container {
-      font-size: 3rem;
-      margin: 20px 0;
+      font-size: 2.5rem;
+      margin: 2rem 0;
       line-height: 1.5;
-      animation: float 3s ease-in-out infinite;
     }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
+    
+    /* SPECIAL ELEMENTS */
+    .love-note {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 2rem;
+      max-width: 700px;
+      margin: 2rem auto;
+      border: 1px solid rgba(255, 154, 158, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      position: relative;
     }
-
-    /* Scroll Hint */
-    .scroll-hint {
-      margin-top: 20px;
-      font-size: 1rem;
-      opacity: 0.8;
-      animation: bounce 1.5s infinite;
+    .love-note:before {
+      content: "💌";
       position: absolute;
-      bottom: 30px;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      background: #0f0c29;
+      padding: 0 15px;
     }
-
+    .love-note p {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+    .signature {
+      text-align: right;
+      font-style: italic;
+      margin-top: 1.5rem;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: #ff9a9e;
+    }
+    
+    /* ANIMATIONS */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    .hidden {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease-out;
+    }
+    .show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      font-size: 0.9rem;
+      opacity: 0.7;
+      animation: bounce 2s infinite;
+    }
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(10px); }
     }
-
-    /* Love Letter */
-    .love-letter {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 15px;
-      padding: 25px;
-      max-width: 80%;
-      margin: 20px auto;
-      position: relative;
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 105, 180, 0.3);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-      transform: rotate(-1deg);
-    }
-
-    .love-letter:before {
-      content: '💌';
-      position: absolute;
-      top: -15px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 2rem;
-    }
-
-    .love-letter p {
-      font-family: 'Dancing Script', cursive;
-      font-size: 1.3rem;
-      line-height: 1.6;
-      margin-bottom: 15px;
-    }
-
-    .love-letter .signature {
-      text-align: right;
-      font-style: italic;
-      opacity: 0.8;
-      margin-top: 20px;
-    }
     
-    /* Responsive Adjustments */
+    /* RESPONSIVE */
     @media (max-width: 768px) {
-      .text {
-        font-size: 1.5rem;
-        max-width: 90%;
-      }
-      
-      .typing {
-        font-size: 2rem;
-      }
-      
-      .glowing {
-        font-size: 2rem;
-      }
-      
-      .emoji-container {
-        font-size: 2.5rem;
-      }
-      
-      .love-letter {
-        max-width: 90%;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .text {
-        font-size: 1.3rem;
-      }
-      
-      .typing {
-        font-size: 1.7rem;
-      }
-      
-      .glowing {
-        font-size: 1.7rem;
-      }
-      
-      .emoji-container {
-        font-size: 2rem;
-      }
-      
-      .love-letter p {
-        font-size: 1.1rem;
-      }
-    }
-    
-    /* Shake animation for password container */
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-      20%, 40%, 60%, 80% { transform: translateX(5px); }
-    }
-    
-    .shake {
-      animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+      .section-title { font-size: 2.2rem; }
+      .text { font-size: 1.1rem; }
+      .love-note p { font-size: 1.1rem; }
     }
   </style>
 </head>
 <body>
-  <!-- Password Screen -->
+  <!-- PASSWORD SCREEN -->
   <div class="password-screen" id="passwordScreen">
-    <div class="lock-icon">🔒</div>
-    <div class="password-container" id="passwordContainer">
-      <h2 class="password-title">For My Love's Eyes Only</h2>
-      <p class="password-subtitle">Masukkan password untuk membuka pesan istimewa ini</p>
-      <input type="password" id="passwordInput" class="password-input" placeholder="Masukkan password..." autofocus>
-      <button class="submit-btn" id="submitPassword">Buka Hati</button>
-      <p class="error-message" id="errorMessage">Password salah. Coba lagi.</p>
+    <div class="password-box">
+      <div class="lock-icon">🔒</div>
+      <h1 class="password-title">Our Secret World</h1>
+      <p class="password-subtitle">Only for you, my universe ✨</p>
+      <input type="password" class="password-input" id="passwordInput" placeholder="Your secret name..." autofocus>
+      <button class="submit-btn" id="submitBtn">Unlock Memories</button>
     </div>
   </div>
 
-  <!-- Content (akan ditampilkan setelah password benar) -->
-  <div class="content-container" id="contentContainer">
-    <!-- Background Partikel -->
-    <div class="stars-container" id="starsContainer"></div>
-
-    <!-- Intro -->
+  <!-- MAIN CONTENT -->
+  <div class="content" id="mainContent">
+    <!-- HERO SECTION -->
     <section>
-      <h1 class="typing" id="typing-text"></h1>
-      <div class="emoji-container">❤️✨</div>
-      <p class="scroll-hint">Scroll ke bawah ⬇️</p>
-    </section>
+  <h1 class="section-title">Khairunnisa,</h1>
+  <div class="emoji-container">💫🌌✨</div>
+  <p class="text">Ini adalah secuil hati yang kuukir dalam kata-kata, yang mungkin terlalu malu untuk kuucap langsung di depanmu...</p>
+  <p class="scroll-hint">Gulir pelan-pelan ya, nisa, seperti aku menikmati setiap detik bersamamu 🥀</p>
+</section>
 
-    <!-- Teks muncul saat scroll -->
+    <!-- SOSMED STORY -->
     <section>
-      <div class="flourish"></div>
-      <p class="text hidden">Di antara jutaan bintang, kau yang paling terang di hatiku. ✨</p>
-      <div class="emoji-container hidden">🌟💫⭐</div>
-      <div class="flourish"></div>
-    </section>
+  <h2 class="section-title hidden">Awal Cerita</h2>
+  <div class="emoji-container hidden">📱💘🔥</div>
+  <p class="text hidden">Masih ingat nggak saat kita pertama kali tersapa di <span class="highlight">Telegram</span>? Awalnya cuma iseng, tapi siapa sangka aku menemukan <span class="highlight">cahaya kecil</span> yang akhirnya jadi matahari di hidupku.</p>
+  <p class="text hidden">Dari obrolan ringan sampai lupa waktu berjam-jam, kamu bikin aku sadar bahwa <span class="highlight">takdir itu nyata</span>, dan dia datang dengan senyummu.</p>
+</section>
 
+    <!-- VIBES SECTION -->
     <section>
-      <div class="emoji-container hidden">💏💑👩‍❤️‍👨</div>
-      <p class="text hidden">Setiap detik bersamamu adalah cerita yang ingin kuulang.</p>
-      <div class="emoji-container hidden">⏱️💞🔄</div>
-    </section>
+  <h2 class="section-title hidden">Our Vibes</h2>
+  <div class="emoji-container hidden">🎶💞🎧</div>
+  <p class="text hidden">Bersamamu rasanya seperti mendengar <span class="highlight">melodi favorit</span> yang tak pernah bosan kuputar ulang. Dari bahas lagu sampai cerita kecil yang nggak penting, semuanya jadi indah karena ada kamu.</p>
+  <p class="text hidden">Kamu itu nadaku, <span class="highlight">irama yang bikin jantungku berdetak</span>, dan aku nggak pernah mau tekan tombol pause.</p>
+</section>
 
+    <!-- LOVE NOTE -->
     <section>
-      <div class="flourish"></div>
-      <p class="text hidden">Aku tak butuh peta, karena setiap langkahku menuju hatimu.</p>
-      <div class="emoji-container hidden">🗺️👣❤️</div>
-      <div class="flourish"></div>
-    </section>
+  <div class="love-note hidden">
+    <p>Dear Nisa,</p>
+    <p>Aku nggak pernah nyangka kalau ketemu kamu di Telegram bakal jadi <span class="highlight">detak pertama</span> yang bikin hatiku hidup lagi. Setiap katamu seperti hembusan angin yang bikin aku lupa dunia di sekitarku.</p>
+    <p>Kamu itu <span class="highlight">puisi yang tak selesai</span>—setiap sisi darimu bikin aku jatuh lebih dalam, dari tawamu yang nyanyi di kepalaku, sampai diammu yang bikin aku ingin tahu segalanya tentangmu.</p>
+    <p>Terima kasih udah jadi <span class="highlight">cahaya</span> yang diam-diam menerangi hariku, meski kadang aku cuma bisa memandangmu dari kejauhan.</p>
+    <p class="signature">Yours Always,<br>Yang diam-diam tersenyum tiap memikirkanmu</p>
+  </div>
+  <div class="emoji-container hidden">💌💖📲</div>
+</section>
 
-    <!-- Love Letter Section -->
-    <section>
-      <div class="love-letter hidden">
-        <p>Untuk Khairunnisa yang tercinta,</p>
-        <p>Saat pertama kali bertemu denganmu, duniaku berhenti berputar. Waktu terasa melambat, dan aku tahu hidupku tidak akan pernah sama lagi.</p>
-        <p>Cintaku padamu seperti bintang-bintang di langit – tak terhitung jumlahnya, bersinar terang, dan abadi.</p>
-        <p>Senyummu adalah cahaya yang menerangi hari-hariku. Tawamu adalah melodi terindah yang pernah kudengar.</p>
-        <p>Aku berjanji untuk selalu berada di sisimu, dalam suka dan duka, dalam sehat dan sakit.</p>
-        <p>Terima kasih telah menjadi pelengkap hidupku yang sempurna.</p>
-        <p class="signature">Dengan cinta selamanya, 💕</p>
-      </div>
-    </section>
+    <!-- FUTURE -->
+<section>
+  <h2 class="section-title hidden">Next Chapter</h2>
+  <div class="emoji-container hidden">💞📖🔗</div>
+  <p class="text hidden">Entah berapa bab yang akan kita tulis, aku cuma tahu satu hal: aku ingin jadi <span class="highlight">satu-satunya pemeran</span> di setiap halaman ceritamu.</p>
+  <p class="text hidden">Bukan cuma di layar ponsel, tapi di setiap langkah hidupmu. Bersamamu, <span class="highlight">selamanya</span> terasa terlalu singkat.</p>
+</section>
 
-    <section>
-      <p class="glowing">Khairunnisa, forever and always.</p>
-      <div class="emoji-container">💖 💘 💝</div>
-    </section>
+    <!-- ENDING -->
+<section>
+  <h2 class="section-title hidden">Till Infinity</h2>
+  <div class="emoji-container">🔥💓✨</div>
+  <p class="text hidden">Kamu bukan cuma <span class="highlight">mimpi terindahku</span>, tapi juga <span class="highlight">alasanku membukakan mata setiap hari</span>.</p>
+  <p class="text hidden">Kalau dunia ini panggung, aku cuma mau jadi penutup ceritamu—selalu ada di sampingmu, memelukmu erat sampai <span class="highlight">bintang-bintang lupa bersinar</span>.</p>
+</section>
   </div>
 
   <script>
-    // Password Logic
-    const PASSWORD = "khairunnisa"; // Ubah password sesuai keinginan
+    // PASSWORD CHECK
     const passwordScreen = document.getElementById('passwordScreen');
-    const contentContainer = document.getElementById('contentContainer');
+    const mainContent = document.getElementById('mainContent');
     const passwordInput = document.getElementById('passwordInput');
-    const submitPassword = document.getElementById('submitPassword');
-    const errorMessage = document.getElementById('errorMessage');
-    const passwordContainer = document.getElementById('passwordContainer');
-
-    // Event listener untuk tombol submit
-    submitPassword.addEventListener('click', checkPassword);
+    const submitBtn = document.getElementById('submitBtn');
     
-    // Event listener untuk input password (tekan Enter)
-    passwordInput.addEventListener('keyup', function(event) {
-      if (event.key === "Enter") {
-        checkPassword();
-      }
+    // Multiple valid passwords
+    const validPasswords = ['khairunnisa'];
+    
+    submitBtn.addEventListener('click', checkPassword);
+    passwordInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') checkPassword();
     });
-
+    
     function checkPassword() {
-      const inputValue = passwordInput.value.toLowerCase();
+      const input = passwordInput.value.trim().toLowerCase();
       
-      if (inputValue === PASSWORD) {
-        // Password benar
-        passwordScreen.style.opacity = "0";
+      if (validPasswords.includes(input)) {
+        passwordScreen.style.opacity = '0';
         setTimeout(() => {
-          passwordScreen.style.display = "none";
-          contentContainer.style.opacity = "1";
-          
-          // Mulai animasi mengetik setelah password benar
-          setTimeout(typeEffect, 500);
+          passwordScreen.style.display = 'none';
+          mainContent.style.opacity = '1';
+          initAnimations();
         }, 500);
       } else {
-        // Password salah
-        errorMessage.style.opacity = "1";
-        passwordInput.style.borderColor = "#ff6b6b";
-        passwordInput.value = "";
-        
-        // Shake effect
-        passwordContainer.classList.add('shake');
-        setTimeout(() => {
-          passwordContainer.classList.remove('shake');
-        }, 500);
+        passwordInput.style.borderColor = '#ff4757';
+        passwordInput.value = '';
+        passwordInput.placeholder = 'Coba nama lain..';
       }
     }
-
-    // Cegah zoom
-    document.addEventListener('touchstart', function(event) {
-      if (event.touches.length > 1) {
-        event.preventDefault();
-      }
-    }, { passive: false });
-
-    document.addEventListener('wheel', function(event) {
-      if (event.ctrlKey) {
-        event.preventDefault();
-      }
-    }, { passive: false });
-
-    // Generate bintang secara random
-    const starContainer = document.querySelector('.stars-container');
     
-    function createStars() {
-      // Bersihkan container sebelum membuat bintang baru
-      starContainer.innerHTML = '';
+    // SCROLL ANIMATIONS
+    function initAnimations() {
+      const hiddenElements = document.querySelectorAll('.hidden');
       
-      // Buat bintang normal
-      for (let i = 0; i < 150; i++) {
-        let star = document.createElement('div');
-        star.className = 'star';
-        star.style.width = (Math.random() * 3 + 1) + 'px';
-        star.style.height = star.style.width;
-        star.style.top = Math.random() * 100 + 'vh';
-        star.style.left = Math.random() * 100 + 'vw';
-        star.style.animationDuration = (Math.random() * 4 + 2) + 's';
-        star.style.animationDelay = (Math.random() * 2) + 's';
-        starContainer.appendChild(star);
+      function checkScroll() {
+        hiddenElements.forEach(el => {
+          const elTop = el.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+          
+          if (elTop < windowHeight - 100) {
+            el.classList.add('show');
+          }
+        });
       }
       
-      // Ciptakan bintang jatuh secara berkala
-      createShootingStar();
-      setInterval(createShootingStar, 4000);
+      // Initial check
+      checkScroll();
+      
+      // Check on scroll
+      window.addEventListener('scroll', checkScroll);
     }
-
-    function createShootingStar() {
-      let star = document.createElement('div');
-      star.className = 'shooting-star';
-      star.style.top = Math.random() * 50 + 'vh';
-      star.style.left = '0';
-      
-      // Ukuran random untuk bintang jatuh
-      const size = Math.random() * 2 + 2;
-      star.style.width = size + 'px';
-      star.style.height = size + 'px';
-      
-      // Animasi bintang jatuh
-      const duration = Math.random() * 3 + 1;
-      star.style.animation = `shoot ${duration}s linear forwards`;
-      
-      starContainer.appendChild(star);
-      
-      // Hapus setelah animasi selesai
-      setTimeout(() => {
-        star.remove();
-      }, duration * 1000);
-    }
-
-    // Animasi hati melayang acak
+    
+    // SIMPLE HEARTS EFFECT
     function createHearts() {
       const heart = document.createElement('div');
-      heart.className = 'heart';
+      heart.innerHTML = '💖';
+      heart.style.position = 'fixed';
+      heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.top = '-50px';
+      heart.style.zIndex = '999';
+      heart.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+      
       document.body.appendChild(heart);
       
-      // Posisi mulai
-      const startX = Math.random() * window.innerWidth;
-      heart.style.left = startX + 'px';
-      heart.style.top = window.innerHeight + 'px';
-      
-      // Ukuran acak
-      const size = Math.random() * 15 + 10;
-      heart.style.width = size + 'px';
-      heart.style.height = size + 'px';
-      
-      // Animasi naik dan menghilang
-      const duration = Math.random() * 5 + 3;
-      heart.style.transition = `all ${duration}s ease-out`;
-      heart.style.opacity = '0.8';
-      
-      setTimeout(() => {
-        heart.style.top = Math.random() * (window.innerHeight / 2) + 'px';
-        heart.style.left = (parseInt(heart.style.left) + (Math.random() * 100 - 50)) + 'px';
-        heart.style.opacity = '0';
-      }, 100);
-      
-      // Hapus hati setelah animasi selesai
       setTimeout(() => {
         heart.remove();
-      }, duration * 1000);
+      }, 5000);
     }
-
-    // Efek teks muncul saat scroll
-    const hiddenTexts = document.querySelectorAll('.hidden');
-
-    function checkScroll() {
-      hiddenTexts.forEach(text => {
-        const rect = text.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 50) {
-          text.classList.add('show');
-          createHearts(); // Tampilkan hati ketika teks muncul
-        }
-      });
-    }
-
-    // Fix animasi typing supaya tidak kepotong
-    const typingElement = document.getElementById("typing-text");
-    const textToType = "Khairunnisa, My Eternal Star";
-    let index = 0;
-
-    function typeEffect() {
-      if (index < textToType.length) {
-        typingElement.innerHTML += textToType[index];
-        index++;
-        setTimeout(typeEffect, 100);
-      } else {
-        typingElement.style.animation = "blink 1s step-end infinite";
-        
-        // Hapus efek kursor setelah beberapa detik
-        setTimeout(() => {
-          typingElement.style.borderRight = "none";
-          typingElement.style.animation = "none";
-        }, 3000);
-      }
-    }
-
-    // Inisialisasi semua fungsi
-    window.addEventListener('load', function() {
-      createStars();
-      
-      // Jalankan animasi hati secara berkala
-      setInterval(createHearts, 2000);
-      
-      // Periksa scroll awal
-      checkScroll();
-      window.addEventListener('scroll', checkScroll);
-      
-      // Cegah scrolling horizontal
-      document.body.style.overflowX = 'hidden';
-      
-      // Perbarui bintang saat resize
-      window.addEventListener('resize', function() {
-        createStars();
-      });
-    });
+    
+    // Add hearts periodically
+    setInterval(createHearts, 300);
   </script>
 </body>
 </html>
